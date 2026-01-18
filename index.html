@@ -13,102 +13,153 @@
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%); z-index: -1; }
         
         /* Hero */
-        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .royal-logo { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 8vw, 4rem); color: var(--gold); letter-spacing: 10px; text-transform: uppercase; margin-bottom: 15px; }
-        .tagline { font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; color: #888; }
+        .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .royal-logo { font-family: 'Cinzel', serif; font-size: clamp(1.5rem, 7vw, 3.5rem); color: var(--gold); letter-spacing: 12px; text-transform: uppercase; margin-bottom: 20px; }
+        .tagline { font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase; color: #888; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 10px; }
 
-        /* Dual Legacy Section */
-        .legacy-gallery { padding: 60px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: rgba(212, 175, 55, 0.02); }
-        .legacy-card { text-align: center; border: 1px solid rgba(212, 175, 55, 0.1); padding: 30px; background: var(--glass); transition: 0.5s; }
+        /* Legacy Gallery */
+        .legacy-gallery { padding: 60px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
+        .legacy-card { text-align: center; border: 1px solid rgba(212, 175, 55, 0.15); background: var(--glass); padding: 15px; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .legacy-card:hover { border-color: var(--gold); transform: translateY(-10px); }
-        .legacy-card img { width: 100%; max-width: 300px; height: 400px; object-fit: cover; border: 2px solid var(--gold); filter: contrast(110%); margin-bottom: 20px; }
-        .legacy-card h3 { font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 3px; margin-bottom: 10px; }
-        .legacy-card p { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 2px; }
+        .legacy-card img { width: 100%; height: 480px; object-fit: cover; filter: grayscale(30%) contrast(110%); transition: 0.5s; }
+        .legacy-card:hover img { filter: grayscale(0%); }
+        .caption { font-family: 'Cinzel', serif; margin-top: 20px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-size: 1.1rem; }
 
-        /* About & Dedication */
-        .dedication { padding: 80px 10%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .dedication h2 { font-family: 'Cinzel', serif; font-size: 2rem; color: #fff; margin-bottom: 30px; line-height: 1.5; }
-        .dedication h2 span { color: var(--gold); }
-        .founder-bio { max-width: 800px; margin: 0 auto; line-height: 1.8; color: #ccc; font-size: 1.1rem; }
+        /* Narrative - Third Person */
+        .narrative-section { padding: 100px 15%; text-align: center; }
+        .narrative-title { font-family: 'Cinzel', serif; font-size: 2rem; color: #fff; margin-bottom: 40px; letter-spacing: 4px; }
+        .narrative-text { font-size: 1.2rem; line-height: 2.2; color: #bbb; font-weight: 300; font-style: italic; max-width: 900px; margin: 0 auto; }
+        .narrative-text b { color: var(--gold); font-weight: 600; font-style: normal; }
+
+        /* Jui Sultana Tribute */
+        .strength-tribute { padding: 80px 12%; background: rgba(212, 175, 55, 0.02); text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.1); }
+        .strength-quote { font-size: 1.1rem; line-height: 2; color: #ddd; max-width: 850px; margin: 0 auto; }
 
         /* Google Tribute */
-        .google-appreciation { padding: 80px 20px; text-align: center; background: rgba(66, 133, 244, 0.02); border-top: 1px solid rgba(212, 175, 55, 0.1); }
-        .google-icon { font-size: 3rem; background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
-        .verify-btn { display: inline-block; padding: 12px 35px; border: 1px solid #4285F4; color: #4285F4; text-decoration: none; border-radius: 50px; font-size: 0.8rem; letter-spacing: 2px; transition: 0.4s; }
-        .verify-btn:hover { background: #4285F4; color: #fff; box-shadow: 0 0 20px rgba(66, 133, 244, 0.3); }
+        .google-appreciation { padding: 100px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        .google-brand { font-size: 3.5rem; background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; }
 
-        /* Social Ambassador */
-        .governance { padding: 80px 20px; text-align: center; }
-        .ambassador-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 40px; }
-        .brand-icon { text-align: center; text-decoration: none; color: var(--gold); opacity: 0.7; transition: 0.5s; }
-        .brand-icon:hover { opacity: 1; transform: scale(1.1); }
-        .brand-icon i { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        /* Governance */
+        .governance { padding: 80px 10%; display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center; gap: 40px; }
+        .leader-box h4 { font-size: 0.65rem; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 15px; }
+        .leader-box h2 { font-family: 'Cinzel', serif; font-size: 1.8rem; letter-spacing: 3px; }
 
-        footer { padding: 60px; text-align: center; font-size: 0.8rem; color: #555; letter-spacing: 3px; border-top: 1px solid rgba(212, 175, 55, 0.1); }
+        /* Social Icons */
+        .social-bar { padding: 40px; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.1); }
+        .social-link { color: var(--gold); text-decoration: none; margin: 0 20px; font-size: 1.6rem; transition: 0.4s; opacity: 0.6; display: inline-block; }
+        .social-link:hover { opacity: 1; transform: scale(1.2); }
+        .brand-label { font-size: 0.6rem; display: block; margin-top: 5px; letter-spacing: 1px; color: #888; }
+
+        .secret-gate { opacity: 0.05; cursor: default; position: fixed; bottom: 10px; right: 10px; font-size: 10px; color: #555; }
+
+        footer { padding: 80px 20px; text-align: center; font-size: 0.7rem; letter-spacing: 5px; color: #444; border-top: 1px solid rgba(212, 175, 55, 0.02); }
     </style>
 </head>
 <body>
 
     <section class="hero">
-        <p class="tagline">The House of</p>
+        <p class="tagline">The Imperial Chronicle</p>
         <h1 class="royal-logo">Salsabilah Amin Empires</h1>
-        <p class="tagline">Strategic Analyst | International Author | Visionary</p>
+        <p class="tagline">International Author | Strategic Entrepreneur</p>
     </section>
 
     <section class="legacy-gallery">
         <div class="legacy-card">
             <img src="sohag.png" alt="MD. AL AMIN SOHAG">
-            <h3>The Visionary</h3>
-            <p>MD. AL AMIN SOHAG</p>
+            <div class="caption">The Architect</div>
+            <p style="font-size: 0.7rem; letter-spacing: 3px; color: #777; margin-top: 5px;">MD. AL AMIN SOHAG</p>
         </div>
         <div class="legacy-card">
             <img src="salsabilah.jpg" alt="Salsabilah Amin">
-            <h3>The Masterpiece</h3>
-            <p>SALSABILAH AMIN</p>
+            <div class="caption">The Masterpiece</div>
+            <p style="font-size: 0.7rem; letter-spacing: 3px; color: #777; margin-top: 5px;">SALSABILAH AMIN</p>
         </div>
     </section>
 
-    <section class="dedication">
-        <h2>"This website is my discovery and a masterpiece of my daughter <span>SALSABILAH AMIN</span>."</h2>
-        <div class="founder-bio">
-            <p>
-                As a Master of English Literature and an International Author, <b>MD. AL AMIN SOHAG</b> has architected this empire on the pillars of faith and strategic innovation. From <b>SR Electronics Park</b> to the literary world, every step is a tribute to the legacy being built for Salsabilah Amin.
-            </p>
+    <section class="narrative-section">
+        <h2 class="narrative-title">A Symphony of Grit and Vision</h2>
+        <div class="narrative-text">
+            Crafted by the hands of an <b>International Author</b> and <b>Strategic Visionary</b>, the Salsabilah Amin Empires stands as a testament to intellectual sovereignty. 
+            The founder, <b>MD. AL AMIN SOHAG</b>, perceives every venture as a literary verse—structured with logic and inspired by faith. 
+            This portal is more than an interface; it is a discovery and a masterpiece dedicated to the legacy of <b>SALSABILAH AMIN</b>.
+        </div>
+    </section>
+
+    <section class="strength-tribute">
+        <div class="strength-quote">
+            "In the epoch of silence when the world stood still, there was one voice of unwavering courage. <b>NAHIAN SULTANA JUI</b> was the guardian of the flame. Her resilience is the silent engine of this sovereign journey."
         </div>
     </section>
 
     <section class="google-appreciation">
-        <i class="fab fa-google google-icon"></i>
-        <h3 style="font-family: 'Cinzel', serif; letter-spacing: 4px; margin-bottom: 20px;">A TRIBUTE TO INNOVATION</h3>
-        <p style="font-style: italic; color: #aaa; max-width: 700px; margin: 0 auto 30px; line-height: 1.7;">
-            "We extend our sincere gratitude to <b>Google</b>. Our global reach and digital royalty are a testament to the platform that empowers visionary minds to connect with the world."
+        <div class="google-brand"><i class="fab fa-google"></i></div>
+        <h3 style="font-family: 'Cinzel', serif; letter-spacing: 5px; margin-bottom: 25px;">A GLOBAL TRIBUTE</h3>
+        <p style="font-style: italic; color: #888; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+            "We acknowledge <b>Google</b> as the digital witness to our evolution. Through its global architecture, the vision of <b>MD. AL AMIN SOHAG</b> finds its universal archive."
         </p>
-        <a href="https://www.google.com/search?q=SR+Electronics+Park+Salsabilah+Amin+Empires" target="_blank" class="verify-btn">
-            Find Us on Google Search
-        </a>
     </section>
 
     <section class="governance">
-        <div class="ambassador-grid">
-            <a href="https://www.facebook.com/SalsabilahEmpires" target="_blank" class="brand-icon">
-                <i class="fab fa-facebook"></i>
-                <span>FACEBOOK</span>
-            </a>
-            <a href="https://www.instagram.com/SalsabilahEmpires" target="_blank" class="brand-icon">
-                <i class="fab fa-instagram"></i>
-                <span>INSTAGRAM</span>
-            </a>
-            <a href="https://www.goodreads.com/author/show/MD_AL_AMIN_SOHAG" target="_blank" class="brand-icon">
-                <i class="fab fa-goodreads"></i>
-                <span>GOODREADS</span>
-            </a>
+        <div class="leader-box">
+            <h4>Honorable Chairman</h4>
+            <h2>NAHIAN SULTANA JUI</h2>
+        </div>
+        <div class="leader-box">
+            <h4>Founder & Managing Director</h4>
+            <h2>MD. AL AMIN SOHAG</h2>
         </div>
     </section>
 
+    <div class="social-bar">
+        <a href="https://www.linkedin.com/in/md-al-amin-sohag" class="social-link" target="_blank">
+            <i class="fab fa-linkedin-in"></i>
+            <span class="brand-label">LinkedIn</span>
+        </a>
+        
+        <a href="https://www.facebook.com/mdalaminsohag.official/" class="social-link" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            <span class="brand-label">Official Profile</span>
+        </a>
+
+        <a href="https://www.facebook.com/salsabilahelectronics/" class="social-link" target="_blank">
+            <i class="fas fa-store"></i>
+            <span class="brand-label">Electronics Park</span>
+        </a>
+
+        <a href="https://instagram.com/SalsabilahEmpires" class="social-link" target="_blank">
+            <i class="fab fa-instagram"></i>
+            <span class="brand-label">Instagram</span>
+        </a>
+
+        <a href="https://goodreads.com/author/show/MD_AL_AMIN_SOHAG" class="social-link" target="_blank">
+            <i class="fab fa-goodreads-g"></i>
+            <span class="brand-label">Goodreads</span>
+        </a>
+
+        <a href="https://github.com/sohagelectronics" class="social-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span class="brand-label">GitHub</span>
+        </a>
+    </div>
+
+    <div class="secret-gate" onclick="initAdmin()">§ Admin</div>
+
     <footer>
         <p>EST. 2026 | SALSABILAH AMIN EMPIRES LIMITED</p>
-        <p style="margin-top: 15px;">POWERED BY FAITH, GRIT & GOOGLE INNOVATION</p>
+        <p style="margin-top: 15px; color: var(--gold); letter-spacing: 5px;">ALHAMDULILLAH FOR EVERYTHING</p>
+        <p style="margin-top: 10px;">POWERED BY FAITH & GOOGLE INNOVATION</p>
     </footer>
 
+    <script>
+        function initAdmin() {
+            let pass = prompt("Enter Empire Key:");
+            if(pass === "sohag2026") {
+                alert("Access Granted. Welcome COO.");
+                window.location.href = "admin.html";
+            } else {
+                alert("Unauthorized Access.");
+            }
+        }
+    </script>
 </body>
 </html>
