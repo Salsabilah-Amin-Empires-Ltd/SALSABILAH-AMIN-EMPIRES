@@ -6,15 +6,12 @@
     <title>SALSABILAH AMIN EMPIRES | Md Al Amin Sohag</title>
     
     <link rel="icon" type="image/jpeg" href="pavicon.png.jpg">
-    <link rel="apple-touch-icon" href="pavicon.png.jpg">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root { --gold: #D4AF37; --navy: #001F3F; --white: #ffffff; --dark-bg: #000c1a; }
         body { margin: 0; padding: 0; font-family: 'Georgia', serif; background-color: var(--dark-bg); color: var(--white); scroll-behavior: smooth; }
         
-        /* Hero Section */
         header {
             height: 100vh;
             background: linear-gradient(rgba(0, 12, 26, 0.8), rgba(0, 12, 26, 0.8)), url('cover.png');
@@ -26,7 +23,6 @@
         .hero-title { font-size: clamp(2.2rem, 8vw, 4rem); color: var(--gold); letter-spacing: 5px; margin: 0; text-transform: uppercase; }
         .hero-subtitle { font-size: clamp(1rem, 4vw, 1.5rem); font-style: italic; margin: 15px 0; color: #e0e0e0; }
 
-        /* Container & Layout */
         .container { max-width: 1100px; margin: auto; padding: 60px 20px; }
         .section-title { text-align: center; font-size: 2.2rem; color: var(--gold); margin-bottom: 40px; text-transform: uppercase; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 10px; }
         
@@ -34,39 +30,29 @@
         .card { background: rgba(255, 255, 255, 0.05); padding: 30px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; transition: 0.4s; text-align: center; text-decoration: none; color: white; display: block; }
         .card:hover { transform: translateY(-10px); border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
         .card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
-        .card h3 { color: var(--gold); margin-bottom: 10px; }
 
-        /* Salsabilah Section */
-        .legacy-section { text-align: center; padding: 80px 20px; background: rgba(212, 175, 55, 0.03); border-top: 1px solid rgba(212, 175, 55, 0.1); }
-        .salsabilah-img {
-            width: 320px;
-            height: auto;
-            border-radius: 20px;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
-            margin-bottom: 25px;
-        }
-        .legacy-text { font-style: italic; color: var(--gold); font-size: 1.4rem; margin-top: 15px; max-width: 700px; margin-inline: auto; }
+        /* Research Legacy Section */
+        .research-legacy { background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(0, 31, 63, 0.5)); padding: 60px 30px; border-radius: 20px; border: 1px solid var(--gold); margin: 50px 0; text-align: center; }
+        .theory-box { font-size: 1.8rem; color: var(--gold); margin: 20px 0; font-weight: bold; border: 1px dashed var(--gold); padding: 15px; display: inline-block; }
+        .country-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 25px; }
+        .country-pill { background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold); color: #fff; padding: 6px 15px; border-radius: 50px; font-size: 0.85rem; }
+        
+        /* Awards/Accolades Badges */
+        .awards-flex { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
+        .award-item { text-align: center; max-width: 150px; }
+        .award-item i { font-size: 2rem; color: var(--gold); display: block; margin-bottom: 10px; }
+        .award-item span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #bdc3c7; }
 
-        /* Leadership & Tribute */
+        .salsabilah-img { width: 320px; height: auto; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 0 50px rgba(212, 175, 55, 0.3); margin-bottom: 25px; }
+
         .leadership { background: var(--navy); padding: 80px 20px; text-align: center; border-top: 5px solid var(--gold); border-bottom: 5px solid var(--gold); }
         .leader-info { margin: 50px 0; }
         .leader-name { font-size: 2.8rem; color: var(--gold); margin-bottom: 5px; }
-        .leader-title { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; color: #ffffff; font-weight: bold; }
-        
         .tribute-box { max-width: 850px; margin: 30px auto; padding: 30px; border-left: 4px solid var(--gold); background: rgba(255, 255, 255, 0.03); text-align: left; }
-        .tribute-text { font-style: italic; color: #bdc3c7; font-size: 1.35rem; line-height: 1.8; }
+        .tribute-text { font-style: italic; color: #bdc3c7; font-size: 1.3rem; line-height: 1.8; }
 
-        /* Footer & Socials */
-        footer { text-align: center; padding: 40px; background: #000814; color: var(--gold); border-top: 1px solid var(--gold); font-size: 0.9rem; }
-        .social-links { margin-top: 15px; }
+        footer { text-align: center; padding: 40px; background: #000814; color: var(--gold); border-top: 1px solid var(--gold); }
         .social-link { color: var(--gold); font-size: 1.8rem; margin: 0 15px; transition: 0.3s; display: inline-block; }
-        .social-link:hover { transform: scale(1.2); }
-        .fa-whatsapp:hover { color: #25D366; }
-        .fa-facebook:hover { color: #1877F2; }
-
-        .btn { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 12px 30px; text-decoration: none; font-weight: bold; transition: 0.3s; text-transform: uppercase; display: inline-block; margin-top: 20px; }
-        .btn:hover { background: var(--gold); color: var(--navy); }
     </style>
 </head>
 <body>
@@ -76,81 +62,84 @@
         <h1 class="hero-title">SALSABILAH AMIN EMPIRES</h1>
         <p class="hero-subtitle">"A Symphony of Faith and Grit"</p>
         <p style="color: var(--gold); font-size: 1.1rem; letter-spacing: 1px;">From English Literature to Global Infrastructure Resilience</p>
-        <a href="#vision" class="btn">Explore The Architecture</a>
     </header>
 
-    <div id="vision" class="container">
-        <div style="text-align: center;">
-            <h2 class="section-title">Strategic Architecture</h2>
-        </div>
+    <div class="container">
+        <h2 class="section-title">Strategic Architecture</h2>
         <div class="grid">
             <div class="card">
                 <i class="fas fa-book-open"></i>
                 <h3>Verified Author</h3>
-                <p>Author of "Circuit to Start Up" - Bridging Literature and Global Industrial Innovation.</p>
+                <p>Author of "Circuit to Start Up" - Bridging Engineering and Literature into Global Innovation.</p>
             </div>
-            
-            <div class="card">
-                <i class="fas fa-globe-americas"></i>
-                <h3>Global Research Impact</h3>
-                <p>Spanning 19 countries with the EC Joint Research Centre (JRC). Pioneer of the <strong>SOHAG Filter & Digit Theory</strong>.</p>
-            </div>
-
             <a href="https://wa.me/8801711995940" target="_blank" class="card">
                 <i class="fab fa-whatsapp"></i>
-                <h3>Direct Business Line</h3>
-                <p>Contact MD Al Amin Sohag for strategic consultations and industrial inquiries via WhatsApp.</p>
+                <h3>Strategic Contact</h3>
+                <p>Direct communication channel via WhatsApp for industrial and research inquiries.</p>
             </a>
-        </div>
-        
-        <div style="margin-top: 30px; text-align: center;">
-            <a href="https://www.facebook.com/salsabilahelectronics/" target="_blank" class="card" style="max-width: 500px; margin: auto;">
+            <a href="https://www.facebook.com/salsabilahelectronics/" target="_blank" class="card">
                 <i class="fab fa-facebook-square"></i>
                 <h3>SR Electronics Park</h3>
-                <p>Official Page: Retail Excellence & Strategic Consumer Leadership. Click to visit our official Facebook hub.</p>
+                <p>Flagship retail enterprise and strategic consumer leadership hub.</p>
             </a>
         </div>
+
+        
+        <section class="research-legacy">
+            <div class="awards-flex">
+                <div class="award-item"><i class="fas fa-award"></i><span>JRC Contributor</span></div>
+                <div class="award-item"><i class="fas fa-certificate"></i><span>Global Theory Pioneer</span></div>
+                <div class="award-item"><i class="fas fa-star"></i><span>19 Nations Reach</span></div>
+            </div>
+            
+            <h2 style="color: var(--gold); margin-top: 15px; text-transform: uppercase;">International Research Impact</h2>
+            <div class="theory-box">SOHAG Filter & Digit Theory</div>
+            <p style="max-width: 850px; margin: auto; font-size: 1.15rem; line-height: 1.7; color: #e0e0e0;">
+                A pioneer in industrial data optimization. This research has been recognized across <strong>19 nations</strong>, contributing to the <strong>European Commission’s Joint Research Centre (JRC)</strong>.
+            </p>
+            <div class="country-grid">
+                <span class="country-pill">USA</span> <span class="country-pill">Germany</span> <span class="country-pill">UK</span>
+                <span class="country-pill">Italy</span> <span class="country-pill">Belgium</span> <span class="country-pill">Japan</span>
+                <span class="country-pill">Canada</span> <span class="country-pill">France</span> <span class="country-pill">India</span>
+                <span class="country-pill">Australia</span> <span class="country-pill">Netherlands</span> <span class="country-pill">Bangladesh</span>
+                <span class="country-pill">Switzerland</span> <span class="country-pill">South Korea</span> <span class="country-pill">Spain</span>
+                <span class="country-pill">Austria</span> <span class="country-pill">Finland</span> <span class="country-pill">Greece</span>
+                <span class="country-pill">Poland</span>
+            </div>
+        </section>
     </div>
 
-    <section class="legacy-section">
-        <div class="container">
-            <h2 class="section-title">The Heart of the Empire</h2><br>
-            <img src="salsabilah.jpg" alt="Salsabilah Amin" class="salsabilah-img">
-            <div class="leader-name" style="font-size: 3rem; color: var(--gold);">SALSABILAH AMIN</div>
-            <p class="legacy-text">"Come from Paradise, she brings all blessings for her father."</p>
-        </div>
+    <section style="text-align: center; padding: 80px 20px;">
+        <h2 class="section-title">The Heart of the Empire</h2><br>
+        <img src="salsabilah.jpg" alt="Salsabilah Amin" class="salsabilah-img">
+        <h2 style="font-size: 3rem; color: var(--gold); margin: 10px 0;">SALSABILAH AMIN</h2>
+        <p style="font-style: italic; color: var(--gold); font-size: 1.4rem;">"A divine blessing, bringing prosperity and light to this legacy."</p>
     </section>
 
     <section class="leadership">
-        <div style="text-align: center;">
-            <h2 class="section-title" style="color: white; border-color: white;">Governing Body</h2>
-        </div>
+        <h2 class="section-title" style="color: white; border-color: white;">Governing Body</h2>
         <div class="leader-info">
-            <div class="leader-name">NAHIAN SULTANA JUI</div>
-            <div class="leader-title">Chairman</div>
+            <h2 class="leader-name">NAHIAN SULTANA JUI</h2>
+            <p style="color: #ffffff; letter-spacing: 3px; font-weight: bold; text-transform: uppercase;">Chairman</p>
             <div class="tribute-box">
                 <p class="tribute-text">
                     "She held the hand of a man with empty pockets, believed in his vision when the world stayed silent, and walked with him until that struggle became an Empire. Today, she rightfully reigns as the Queen of the legacy she helped create."
                 </p>
             </div>
         </div>
-        <div class="leader-info" style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 60px;">
-            <div class="leader-name">MD AL AMIN SOHAG</div>
-            <div class="leader-title">Managing Director & Founder</div>
+        <div class="leader-info" style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 50px;">
+            <h2 class="leader-name">MD AL AMIN SOHAG</h2>
+            <p style="color: #ffffff; letter-spacing: 3px; font-weight: bold; text-transform: uppercase;">Managing Director & Founder</p>
         </div>
     </section>
 
     <footer>
         <p>SALSABILAH AMIN EMPIRES &copy; 2026 | MD AL AMIN SOHAG</p>
-        <div class="social-links">
-            <a href="https://wa.me/8801711995940" target="_blank" class="social-link">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://www.facebook.com/salsabilahelectronics/" target="_blank" class="social-link">
-                <i class="fab fa-facebook"></i>
-            </a>
+        <div style="margin-top: 15px;">
+            <a href="https://wa.me/8801711995940" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/salsabilahelectronics/" target="_blank" class="social-link"><i class="fab fa-facebook"></i></a>
         </div>
-        <p style="font-size: 0.8rem; margin-top: 15px;">Built on Faith and Grit</p>
+        <p style="font-size: 0.8rem; margin-top: 15px; color: #888; letter-spacing: 1px;">BUILT ON FAITH AND GRIT</p>
     </footer>
 
 </body>
