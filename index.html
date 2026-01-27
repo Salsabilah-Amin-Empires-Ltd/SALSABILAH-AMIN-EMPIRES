@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALSABILAH AMIN EMPIRES | Md Al Amin Sohag</title>
+    <link rel="icon" type="image/jpeg" href="pavicon.png.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --gold: #D4AF37; --navy: #001F3F; --white: #ffffff; --dark-bg: #000c1a; }
@@ -18,44 +19,23 @@
             border-bottom: 5px solid var(--gold);
         }
 
-        /* DW Official Style Badge with Your Name */
-        .dw-logo-badge {
-            background: #D4AF37;
-            color: #000;
-            padding: 10px 25px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            display: inline-block;
-            border-radius: 2px;
-        }
-        .dw-logo-badge span {
-            background: #000;
-            color: #D4AF37;
-            padding: 10px 15px;
-            margin-left: 20px;
-            margin-right: -25px;
-        }
-
-        .hero-title { font-size: clamp(2rem, 8vw, 4rem); color: var(--gold); letter-spacing: 5px; margin: 0; text-transform: uppercase; }
+        .badge { background: var(--gold); color: var(--navy); padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase; }
+        .hero-title { font-size: clamp(2.2rem, 8vw, 4rem); color: var(--gold); letter-spacing: 5px; margin: 0; text-transform: uppercase; }
         .hero-subtitle { font-size: clamp(1rem, 4vw, 1.5rem); font-style: italic; margin: 15px 0; color: #e0e0e0; }
 
-        /* Content Sections */
+        /* Container & Grid */
         .container { max-width: 1100px; margin: auto; padding: 60px 20px; }
         .section-title { text-align: center; font-size: 2.2rem; color: var(--gold); margin-bottom: 40px; text-transform: uppercase; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 10px; }
         
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background: rgba(255, 255, 255, 0.05); padding: 30px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; transition: 0.4s; text-align: center; }
         .card:hover { transform: translateY(-10px); border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
-        .card i { font-size: 2rem; color: var(--gold); margin-bottom: 15px; }
+        .card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
 
-        /* Salsabilah - The Legacy Section */
+        /* Salsabilah - The Inspiration Section */
         .legacy-section { text-align: center; padding: 80px 20px; background: rgba(212, 175, 55, 0.03); }
         .salsabilah-img {
-            width: 300px;
+            width: 320px;
             height: auto;
             border-radius: 15px;
             border: 3px solid var(--gold);
@@ -64,11 +44,23 @@
         }
         .legacy-text { font-style: italic; color: var(--gold); font-size: 1.4rem; margin-top: 15px; max-width: 700px; margin-inline: auto; }
 
-        /* Governing Body Section */
+        /* Leadership & Tribute Section */
         .leadership { background: var(--navy); padding: 80px 20px; text-align: center; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); }
-        .leader-info { margin: 30px 0; }
-        .leader-name { font-size: 2.2rem; color: var(--gold); margin-bottom: 5px; }
-        .leader-title { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: #bdc3c7; }
+        .leader-info { margin: 40px 0; }
+        .leader-name { font-size: 2.5rem; color: var(--gold); margin-bottom: 5px; }
+        .leader-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 3px; color: #ffffff; font-weight: bold; }
+        
+        .tribute-text {
+            font-style: italic;
+            color: #bdc3c7;
+            max-width: 850px;
+            margin: 25px auto;
+            font-size: 1.25rem;
+            line-height: 1.7;
+            border-left: 3px solid var(--gold);
+            padding-left: 20px;
+            text-align: left;
+        }
 
         footer { text-align: center; padding: 40px; background: #000814; color: var(--gold); border-top: 1px solid var(--gold); font-size: 0.9rem; }
         .btn { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 12px 30px; text-decoration: none; font-weight: bold; transition: 0.3s; text-transform: uppercase; display: inline-block; margin-top: 20px; }
@@ -78,7 +70,7 @@
 <body>
 
     <header>
-        <div class="dw-logo-badge">DW RISING STAR OF ASIA <span>MD AL AMIN SOHAG</span></div>
+        <span class="badge">DW Rising Star of Asia</span>
         <h1 class="hero-title">SALSABILAH AMIN EMPIRES</h1>
         <p class="hero-subtitle">"A Symphony of Faith and Grit"</p>
         <p style="color: var(--gold); font-size: 1.1rem; letter-spacing: 1px;">From English Literature to Global Infrastructure Resilience</p>
@@ -112,7 +104,7 @@
         <div class="container">
             <h2 class="section-title">The Heart of the Empire</h2><br>
             <img src="salsabilah.jpg" alt="Salsabilah Amin" class="salsabilah-img">
-            <div class="leader-name" style="font-size: 2.5rem;">SALSABILAH AMIN</div>
+            <div class="leader-name" style="font-size: 2.8rem;">SALSABILAH AMIN</div>
             <p class="legacy-text">"Come from Paradise, she brings all blessings for her father."</p>
         </div>
     </section>
@@ -121,11 +113,17 @@
         <div style="text-align: center;">
             <h2 class="section-title" style="color: white; border-color: white;">Governing Body</h2>
         </div>
+        
         <div class="leader-info">
             <div class="leader-name">NAHIAN SULTANA JUI</div>
             <div class="leader-title">Chairman</div>
+            
+            <div class="tribute-text">
+                "She held the hand of a man with empty pockets, believed in his vision when the world stayed silent, and walked with him until that struggle became an Empire. Today, she rightfully reigns as the Queen of the legacy she helped create."
+            </div>
         </div>
-        <div class="leader-info">
+
+        <div class="leader-info" style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 40px;">
             <div class="leader-name">MD AL AMIN SOHAG</div>
             <div class="leader-title">Managing Director & Founder</div>
         </div>
