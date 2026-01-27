@@ -13,7 +13,7 @@ In this seminal work, Sohag details his proprietary framework for transforming c
 
 ---
 
-## 🔬 Core Intellectual Property
+## 🔬 Core Intellectual Property & Innovation
 - **The SOHAG Filter:** A high-precision algorithmic process used to refine massive datasets and isolate critical risk factors in industrial networks.
 - **Digit Theory:** A mathematical methodology for digitizing analog industrial signals to prevent systemic collapses in power grids.
 - **The Framework:** A 360-degree strategic model for scaling technology-driven ideas into global industrial empires.
@@ -24,7 +24,7 @@ In this seminal work, Sohag details his proprietary framework for transforming c
 Founder of **Salsabilah Amin Empires**, a visionary conglomerate integrated with global intelligence and dedicated to the legacy of **Salsabilah Amin**. 
 
 - **Leadership:** Chaired by **Nahian Sultana Jui**, integrating global research with industrial excellence.
-- **Global Impact:** Strategic contributions to the **European Commission's JRC** across 19 nations.
+- **Global Impact:** Strategic contributions to the **European Commission's JRC** research wing across 19 nations.
 
 ---
 
