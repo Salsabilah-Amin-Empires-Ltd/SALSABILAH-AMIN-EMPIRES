@@ -1,7 +1,7 @@
 # 🌍 MD. AL AMIN SOHAG
 ### Global Systems Strategist & Researcher | Founder, Salsabilah Amin Empires
 
-Recognized by **DW (Deutsche Welle)** as the **'Rising Star of Asia'**, MD AL AMIN SOHAG is a high-profile researcher and a **Goodreads Verified Author**.
+Recognized by **DW (Deutsche Welle)** as the **'Rising Star of Asia'**, MD. AL AMIN SOHAG is a high-profile researcher and a **Goodreads Verified Author**.
 
 ---
 
