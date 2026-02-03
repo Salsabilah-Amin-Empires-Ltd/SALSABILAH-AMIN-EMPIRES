@@ -1,0 +1,4 @@
+Invoice_ID,Date,Customer,Product,Total,Balance,Warranty_Expiry,UK_Reg
+INV-0001,15-Nov-2024,Opening_Sale,Electronics,35000,0,15-Nov-2034,09814720
+INV-0643,29-Jan-2026,MD_ANES_UDDIN,Minister_AC,47702,40702,29-Jan-2036,09814720
+INV-0644,03-Feb-2026,MD_ANES_UDDIN,Accessories,3790,3690,03-Feb-2027,09814720
