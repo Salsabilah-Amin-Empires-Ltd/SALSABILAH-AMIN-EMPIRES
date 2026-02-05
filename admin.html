@@ -3,93 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salsabilah Amin Empires | Master POS</title>
-    <link rel="manifest" href="manifest.json">
+    <title>Admin Control - Salsabilah Empire</title>
     <style>
-        :root { --primary: #2c3e50; --gold: #d4af37; --bg: #f0f2f5; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; display: flex; flex-direction: column; height: 100vh; }
-        .header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--gold); }
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; padding: 20px; }
-        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .stat-card h2 { margin: 0; color: var(--primary); font-size: 28px; }
-        .main-content { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; padding: 0 20px; flex-grow: 1; }
-        .panel { background: white; padding: 20px; border-radius: 12px; overflow-y: auto; max-height: 60vh; }
-        input, select, button { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-        button { background: var(--primary); color: white; border: none; cursor: pointer; transition: 0.3s; font-weight: bold; }
-        button:hover { background: #1a252f; border-bottom: 3px solid var(--gold); }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
-        .badge { padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; }
-        .stock-in { background: #e7f3ff; color: #007bff; }
-        .sale { background: #e6fffa; color: #38b2ac; }
-        .expense { background: #fff5f5; color: #e53e3e; }
+        :root { --primary: #1a252f; --gold: #d4af37; --danger: #c0392b; --success: #27ae60; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; color: #333; }
+        .nav { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--gold); }
+        .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+        .admin-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        h2 { border-left: 5px solid var(--gold); padding-left: 10px; color: var(--primary); }
+        button { cursor: pointer; padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .btn-backup { background: var(--primary); color: white; }
+        .btn-reset { background: var(--danger); color: white; }
+        .btn-sync { background: var(--success); color: white; }
+        .stats-box { background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #ddd; }
+        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1 style="margin:0;">👑 SALSABILAH AMIN EMPIRES</h1>
-    <p style="margin:5px 0 0 0; font-size: 14px; opacity: 0.8;">Industrial Intelligence System | UK Reg: 09814720</p>
+<div class="nav">
+    <div><strong>SALSABILAH AMIN EMPIRES</strong> | Admin Panel</div>
+    <div>Reg No: 09814720 (UK)</div>
 </div>
 
-<div class="dashboard">
-    <div class="stat-card"><h3>মোট স্টক ভ্যালু</h3><h2 id="totalStock">0</h2><small>টাকা (আনুমানিক)</small></div>
-    <div class="stat-card"><h3>আজকের নিট ক্যাশ</h3><h2 id="dailyCash">0</h2><small>টাকা</small></div>
-    <div class="stat-card"><h3>মোট কাস্টমার</h3><h2 id="totalCust">350+</h2><small>সক্রিয় ডাটা</small></div>
-</div>
+<div class="container">
+    <div class="grid">
+        <div class="admin-card">
+            <h2>💾 ডাটা ম্যানেজমেন্ট</h2>
+            <p>আপনার ব্যবসার সকল ডাটা (Inventory & Ledger) ব্যাকআপ নিন।</p>
+            <button class="btn-backup" onclick="exportData()">Download Backup (JSON)</button>
+            <hr>
+            <p style="color: var(--danger); font-size: 13px;">সাবধান: রিসেট করলে সব হিসাব মুছে যাবে!</p>
+            <button class="btn-reset" onclick="resetSystem()">Factory Reset System</button>
+        </div>
 
-<div class="main-content">
-    <div class="panel">
-        <h3>🚀 ট্রানজেকশন এন্ট্রি</h3>
-        <select id="actionType" onchange="toggleInputs()">
-            <option value="sale">নতুন বিক্রয় (Sales)</option>
-            <option value="stock">স্টক আপডেট (Purchase)</option>
-            <option value="expense">দৈনিক খরচ (Expense)</option>
-        </select>
-        
-        <input type="text" id="mainInput" placeholder="পণ্যের নাম / খাতের নাম">
-        <input type="number" id="amtInput" placeholder="পরিমাণ / টাকা">
-        <input type="number" id="priceInput" placeholder="একক মূল্য (বিক্রয়ের ক্ষেত্রে)">
-        <button onclick="processEmpireLogic()">সিস্টেমে আপডেট করুন</button>
+        <div class="admin-card">
+            <h2>⚙️ সিস্টেম ইন্টেলিজেন্স</h2>
+            <div class="stats-box">
+                <p><strong>PWA Status:</strong> <span style="color:var(--success)">Online & Cached</span></p>
+                <p><strong>Database Size:</strong> <span id="dbSize">0</span> KB</p>
+                <p><strong>Price Guardian:</strong> Active</p>
+            </div>
+            <button class="btn-sync" onclick="location.href='software.html'">Go to POS System</button>
+        </div>
     </div>
 
-    <div class="panel">
-        <h3>📜 ডিজিটাল লেজার (Live Data)</h3>
-        <table id="empireTable">
-            <thead>
-                <tr>
-                    <th>তারিখ</th>
-                    <th>বিবরণ</th>
-                    <th>টাইপ</th>
-                    <th>টাকা/পরিমাণ</th>
-                </tr>
-            </thead>
-            <tbody id="empireBody"></tbody>
-        </table>
+    <div class="admin-card">
+        <h2>🔍 Raw Data Inspection (JSON)</h2>
+        <p>সিস্টেমের ভেতরের মূল ডাটাবেস স্ট্রাকচার:</p>
+        <pre id="jsonViewer">Loading data...</pre>
     </div>
 </div>
 
 <script>
-    // ডাটাবেস ইমিটেশন
-    let empireData = JSON.parse(localStorage.getItem('empire_db')) || { inventory: {}, ledger: [], stats: { cash: 0, stockValue: 0 } };
+    // ডাটা লোড করা
+    function loadAdminData() {
+        const data = localStorage.getItem('empire_db');
+        if (data) {
+            document.getElementById('jsonViewer').innerText = JSON.stringify(JSON.parse(data), null, 4);
+            document.getElementById('dbSize').innerText = (data.length / 1024).toFixed(2);
+        } else {
+            document.getElementById('jsonViewer').innerText = "কোন ডাটা পাওয়া যায়নি।";
+        }
+    }
 
-    function processEmpireLogic() {
-        const type = document.getElementById('actionType').value;
-        const item = document.getElementById('mainInput').value;
-        const qty = parseFloat(document.getElementById('amtInput').value);
-        const price = parseFloat(document.getElementById('priceInput').value) || 0;
-        const date = new Date().toLocaleDateString();
+    // ব্যাকআপ এক্সপোর্ট
+    function exportData() {
+        const data = localStorage.getItem('empire_db');
+        if(!data) return alert("ব্যাকআপ নেওয়ার মতো কোনো ডাটা নেই!");
+        
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Salsabilah_Backup_${new Date().toLocaleDateString()}.json`;
+        a.click();
+    }
 
-        if(!item || !qty) return alert("সবগুলো তথ্য সঠিকভাবে দিন!");
+    // সিস্টেম রিসেট
+    function resetSystem() {
+        if (confirm("আপনি কি নিশ্চিত? আপনার সকল বিক্রয় এবং স্টকের হিসাব পাকাপাকিভাবে মুছে যাবে!")) {
+            localStorage.removeItem('empire_db');
+            alert("সিস্টেম রিসেট সফল হয়েছে।");
+            location.reload();
+        }
+    }
 
-        if(type === 'stock') {
-            empireData.inventory[item] = (empireData.inventory[item] || 0) + qty;
-            empireData.stats.stockValue += (qty * price);
-            addLedger(date, `স্টক এন্ট্রি: ${item}`, 'stock-in', `+${qty} পিস`);
-        } 
-        else if(type === 'sale') {
-            if((empireData.inventory[item] || 0) < qty) return alert("স্টক নেই!");
-            empireData.inventory[item] -= qty;
-            empireData.stats.cash += (qty * price);
-            addLedger(date,
-                      
+    // শুরুতে রান হবে
+    loadAdminData();
+</script>
+
+</body>
+</html>
