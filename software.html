@@ -2,103 +2,55 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Salsabilah Amin Empires | Cloud POS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAE CORE | Global Enterprise Software</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #1a252f; --gold: #d4af37; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; }
-        .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
-        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .panel { background: white; margin: 0 15px 15px; padding: 20px; border-radius: 12px; }
-        input, select, button { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { background: var(--primary); color: white; font-weight: bold; border: none; cursor: pointer; }
-        .sync-status { font-size: 10px; text-align: center; color: var(--gold); margin-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
+        :root { --gold: #D4AF37; --bg: #000b18; --card: #00162d; --text: #f8fafc; --accent: #38bdf8; --red: #ff4757; --green: #2ed573; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+       .sidebar { width: 280px; background: var(--card); border-right: 2px solid var(--gold); padding: 25px; display: flex; flex-direction: column; }
+       .nav-link { padding: 14px; margin: 8px 0; background: rgba(255,255,255,0.03); border: 1px solid #1e293b; color: #fff; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+       .nav-link:hover,.active { background: var(--gold); color: #000; font-weight: bold; }
+       .workspace { flex: 1; padding: 30px; overflow-y: auto; background: radial-gradient(circle at top right, #001f3f, #000b18); }
+       .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+       .stat-card { background: var(--card); padding: 20px; border-radius: 15px; border-bottom: 4px solid var(--accent); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; color: #333; border-radius: 10px; overflow: hidden; }
+        th { background: #f1f2f6; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
+       .badge { padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; }
+       .bg-danger { background: var(--red); color: #fff; }
+       .bg-success { background: var(--green); color: #000; }
+        @media print {.no-print { display: none; } #invoice-print { display: block!important; } }
     </style>
 </head>
 <body>
-
-<div class="header">
-    <h1 style="font-size:18px; margin:0;">👑 SALSABILAH AMIN EMPIRES</h1>
-    <small>UK Registered: 09814720</small>
-</div>
-
-<div class="dashboard">
-    <div class="card"><h3>ক্যাশ</h3><h2 id="cashDisp">0</h2></div>
-    <div class="card"><h3>স্টক</h3><h2 id="stockDisp">0</h2></div>
-</div>
-
-<div class="sync-status" id="syncStatus">Cloud Sync: Standby</div>
-
-<div class="panel">
-    <h3>🛒 বিক্রয় ও হিসাব</h3>
-    <select id="type">
-        <option value="SALE">বিক্রয় (Sale)</option>
-        <option value="STOCK">স্টক ইন (Stock-In)</option>
-        <option value="EXPENSE">খরচ (Expense)</option>
-    </select>
-    <input type="text" id="desc" placeholder="পণ্যের নাম/বিবরণ">
-    <input type="number" id="amt" placeholder="টাকা/পরিমাণ">
-    <button onclick="saveToEmpire()">আপডেট ও ক্লাউড সেভ</button>
-</div>
-
-<div class="panel">
-    <h3>📜 লাইভ ট্রানজেকশন</h3>
-    <table>
-        <thead><tr><th>বিবরণ</th><th>টাইপ</th><th>টাকা</th></tr></thead>
-        <tbody id="ledgerBody"></tbody>
-    </table>
-</div>
-
-<script>
-    // --- গিটহাব কনফিগারেশন (আপনার জন্য) ---
-    const GITHUB_TOKEN = "আপনার_পার্সোনাল_টোকেন_এখানে"; 
-    const REPO_OWNER = "SalsabilahEmpires";
-    const REPO_NAME = "SALSABILAH-AMIN-EMPIRES";
-
-    let db = JSON.parse(localStorage.getItem('empire_db')) || { cash: 0, stock: 0, ledger: [] };
-
-    function render() {
-        document.getElementById('cashDisp').innerText = db.cash;
-        document.getElementById('stockDisp').innerText = db.stock;
-        document.getElementById('ledgerBody').innerHTML = db.ledger.slice(0,10).map(r => `
-            <tr><td>${r.desc}</td><td>${r.type}</td><td>${r.amt}</td></tr>
-        `).join('');
-    }
-
-    async function saveToEmpire() {
-        const type = document.getElementById('type').value;
-        const desc = document.getElementById('desc').value;
-        const amt = parseFloat(document.getElementById('amt').value);
-
-        if(!desc || !amt) return alert("তথ্য দিন!");
-
-        // লোকাল আপডেট
-        if(type === 'SALE') db.cash += amt;
-        else if(type === 'STOCK') db.stock += amt;
-        else db.cash -= amt;
-
-        db.ledger.unshift({ date: new Date().toLocaleString(), type, desc, amt });
-        localStorage.setItem('empire_db', JSON.stringify(db));
-        render();
-
-        // ক্লাউড সিঙ্ক লজিক
-        document.getElementById('syncStatus').innerText = "Syncing with GitHub...";
-        await syncToGitHub();
-    }
-
-    async function syncToGitHub() {
-        // এই ফাংশনটি আপনার inventory_mapping.json ফাইলটি GitHub API দিয়ে আপডেট করবে
-        console.log("GitHub API push logic goes here...");
-        setTimeout(() => {
-            document.getElementById('syncStatus').innerText = "Cloud Sync: Success ✅";
-        }, 2000);
-    }
-
-    render();
-</script>
-
+    <div class="sidebar no-print">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color:var(--gold); margin:0;">SR ELECTRONICS</h2>
+            <p style="font-size:10px; letter-spacing:1px;">SAE CORE v1.0</p>
+        </div>
+        <div class="nav-link active" onclick="nav('dash')"><i class="fas fa-chart-pie"></i> ড্যাশবোর্ড</div>
+        <div class="nav-link" onclick="nav('ledger')"><i class="fas fa-users"></i> কাস্টমার লেজার</div>
+        <div class="nav-link" onclick="nav('stock')"><i class="fas fa-boxes-stacked"></i> ইনভেন্টরি</div>
+        <div class="nav-link" onclick="nav('pos')"><i class="fas fa-shopping-cart"></i> নতুন সেল (POS)</div>
+    </div>
+    <div class="workspace no-print">
+        <div class="stat-grid">
+            <div class="stat-card"><h4>মোট বিক্রি</h4><h2>৳ ৮০,৫০,০০০</h2></div>
+            <div class="stat-card" style="border-color:var(--red);"><h4>মোট বকেয়া</h4><h2>৳ ৩০,০১,৫০০</h2></div>
+            <div class="stat-card" style="border-color:var(--gold);"><h4>মোট খরচ</h4><h2>৳ ২,১৯,০৭৫</h2></div>
+            <div class="stat-card" style="border-color:var(--green);"><h4>স্টক ভ্যালু</h4><h2>৳ ১৫,২০,০০০</h2></div>
+        </div>
+        <div id="dash" class="section">
+            <h3>সাম্প্রতিক ট্রানজ্যাকশন [3]</h3>
+            <table>
+                <thead><tr><th>ইনভয়েস</th><th>কাস্টমার</th><th>পণ্য</th><th>টাকা</th><th>অবস্থা</th></tr></thead>
+                <tbody>
+                    <tr><td>0643</td><td>MD. ANES UDDIN</td><td>Minister 43" TV</td><td>৳৪৭,৭০২</td><td><span class="badge bg-danger">Partial</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="price-guardian.js"></script>
 </body>
 </html>
