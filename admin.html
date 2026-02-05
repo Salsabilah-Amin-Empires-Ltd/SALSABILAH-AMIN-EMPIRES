@@ -3,131 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salsabilah Empire - Professional POS</title>
+    <title>Salsabilah Amin Empires | Master POS</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #fff; }
-        input, select, button { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        button { background: #2c3e50; color: white; cursor: pointer; font-weight: bold; border: none; }
-        button:hover { background: #34495e; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #2c3e50; color: white; }
+        :root { --primary: #2c3e50; --gold: #d4af37; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        .header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--gold); }
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; padding: 20px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .stat-card h2 { margin: 0; color: var(--primary); font-size: 28px; }
+        .main-content { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; padding: 0 20px; flex-grow: 1; }
+        .panel { background: white; padding: 20px; border-radius: 12px; overflow-y: auto; max-height: 60vh; }
+        input, select, button { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { background: var(--primary); color: white; border: none; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        button:hover { background: #1a252f; border-bottom: 3px solid var(--gold); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
+        .badge { padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; }
+        .stock-in { background: #e7f3ff; color: #007bff; }
+        .sale { background: #e6fffa; color: #38b2ac; }
+        .expense { background: #fff5f5; color: #e53e3e; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>👑 Salsabilah Amin Empires - POS & Inventory</h1>
-    
-    <div class="grid">
-        <div class="card">
-            <h3>🛒 নতুন বিক্রয় (Sales)</h3>
-            <input type="text" id="custName" placeholder="কাস্টমারের নাম">
-            <select id="prodSelect">
-                <option value="">পণ্য সিলেক্ট করুন</option>
-                </select>
-            <input type="number" id="saleQty" placeholder="পরিমাণ">
-            <button onclick="makeSale()">বিক্রয় সম্পন্ন করুন</button>
-        </div>
+<div class="header">
+    <h1 style="margin:0;">👑 SALSABILAH AMIN EMPIRES</h1>
+    <p style="margin:5px 0 0 0; font-size: 14px; opacity: 0.8;">Industrial Intelligence System | UK Reg: 09814720</p>
+</div>
 
-        <div class="card">
-            <h3>📦 স্টক আপডেট ও খরচ (Inventory & Expense)</h3>
-            <input type="text" id="itemName" placeholder="পণ্যের নাম/খরচের খাত">
-            <input type="number" id="itemQty" placeholder="পরিমাণ/টাকা">
-            <select id="typeSelect">
-                <option value="stock">স্টক ইন (Stock-In)</option>
-                <option value="expense">দৈনিক খরচ (Expense)</option>
-            </select>
-            <button onclick="updateLedger()">এন্ট্রি দিন</button>
-        </div>
+<div class="dashboard">
+    <div class="stat-card"><h3>মোট স্টক ভ্যালু</h3><h2 id="totalStock">0</h2><small>টাকা (আনুমানিক)</small></div>
+    <div class="stat-card"><h3>আজকের নিট ক্যাশ</h3><h2 id="dailyCash">0</h2><small>টাকা</small></div>
+    <div class="stat-card"><h3>মোট কাস্টমার</h3><h2 id="totalCust">350+</h2><small>সক্রিয় ডাটা</small></div>
+</div>
+
+<div class="main-content">
+    <div class="panel">
+        <h3>🚀 ট্রানজেকশন এন্ট্রি</h3>
+        <select id="actionType" onchange="toggleInputs()">
+            <option value="sale">নতুন বিক্রয় (Sales)</option>
+            <option value="stock">স্টক আপডেট (Purchase)</option>
+            <option value="expense">দৈনিক খরচ (Expense)</option>
+        </select>
+        
+        <input type="text" id="mainInput" placeholder="পণ্যের নাম / খাতের নাম">
+        <input type="number" id="amtInput" placeholder="পরিমাণ / টাকা">
+        <input type="number" id="priceInput" placeholder="একক মূল্য (বিক্রয়ের ক্ষেত্রে)">
+        <button onclick="processEmpireLogic()">সিস্টেমে আপডেট করুন</button>
     </div>
 
-    <div class="card" style="margin-top: 20px;">
-        <h3>📊 বর্তমান ইনভেন্টরি ও লেজার</h3>
-        <table id="ledgerTable">
+    <div class="panel">
+        <h3>📜 ডিজিটাল লেজার (Live Data)</h3>
+        <table id="empireTable">
             <thead>
                 <tr>
                     <th>তারিখ</th>
                     <th>বিবরণ</th>
-                    <th>ইন/আউট</th>
-                    <th>ব্যালেন্স</th>
+                    <th>টাইপ</th>
+                    <th>টাকা/পরিমাণ</th>
                 </tr>
             </thead>
-            <tbody id="ledgerBody"></tbody>
+            <tbody id="empireBody"></tbody>
         </table>
     </div>
 </div>
 
 <script>
-    // সার্ভারলেস বা লোকাল স্টোরেজ লজিক (আপাতত লোকাল স্টোরেজ ব্যবহার করছি)
-    let inventory = JSON.parse(localStorage.getItem('inventory')) || {};
-    let ledger = JSON.parse(localStorage.getItem('ledger')) || [];
+    // ডাটাবেস ইমিটেশন
+    let empireData = JSON.parse(localStorage.getItem('empire_db')) || { inventory: {}, ledger: [], stats: { cash: 0, stockValue: 0 } };
 
-    function updateLedger() {
-        const name = document.getElementById('itemName').value;
-        const qty = parseInt(document.getElementById('itemQty').value);
-        const type = document.getElementById('typeSelect').value;
+    function processEmpireLogic() {
+        const type = document.getElementById('actionType').value;
+        const item = document.getElementById('mainInput').value;
+        const qty = parseFloat(document.getElementById('amtInput').value);
+        const price = parseFloat(document.getElementById('priceInput').value) || 0;
         const date = new Date().toLocaleDateString();
+
+        if(!item || !qty) return alert("সবগুলো তথ্য সঠিকভাবে দিন!");
 
         if(type === 'stock') {
-            inventory[name] = (inventory[name] || 0) + qty;
-            ledger.push({date, desc: `স্টক ইন: ${name}`, change: `+${qty}`, balance: inventory[name]});
-        } else {
-            ledger.push({date, desc: `খরচ: ${name}`, change: `-${qty} TK`, balance: 'N/A'});
-        }
-        
-        saveAndRender();
-    }
-
-    function makeSale() {
-        const cust = document.getElementById('custName').value;
-        const prod = document.getElementById('prodSelect').value;
-        const qty = parseInt(document.getElementById('saleQty').value);
-        const date = new Date().toLocaleDateString();
-
-        if(inventory[prod] >= qty) {
-            inventory[prod] -= qty;
-            ledger.push({date, desc: `${cust}-কে বিক্রয়: ${prod}`, change: `-${qty}`, balance: inventory[prod]});
-            saveAndRender();
-            alert('বিক্রয় সফল হয়েছে!');
-        } else {
-            alert('স্টক শেষ!');
-        }
-    }
-
-    function saveAndRender() {
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-        localStorage.setItem('ledger', JSON.stringify(ledger));
-        render();
-    }
-
-    function render() {
-        const body = document.getElementById('ledgerBody');
-        body.innerHTML = ledger.map(item => `
-            <tr>
-                <td>${item.date}</td>
-                <td>${item.desc}</td>
-                <td>${item.change}</td>
-                <td>${item.balance}</td>
-            </tr>
-        `).reverse().join('');
-
-        const select = document.getElementById('prodSelect');
-        select.innerHTML = '<option value="">পণ্য সিলেক্ট করুন</option>' + 
-            Object.keys(inventory).map(p => `<option value="${p}">${p} (স্টক: ${inventory[p]})</option>`).join('');
-    }
-
-    // রেজিস্টার সার্ভিস ওয়ার্কার (PWA)
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-    }
-
-    render();
-</script>
-</body>
-</html>
+            empireData.inventory[item] = (empireData.inventory[item] || 0) + qty;
+            empireData.stats.stockValue += (qty * price);
+            addLedger(date, `স্টক এন্ট্রি: ${item}`, 'stock-in', `+${qty} পিস`);
+        } 
+        else if(type === 'sale') {
+            if((empireData.inventory[item] || 0) < qty) return alert("স্টক নেই!");
+            empireData.inventory[item] -= qty;
+            empireData.stats.cash += (qty * price);
+            addLedger(date,
+                      
