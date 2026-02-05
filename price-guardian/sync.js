@@ -1,28 +1,40 @@
-// CONFIGURATION FOR SALSABILAH AMIN EMPIRES
-const OFFICIAL_SOURCES = {
-    MINISTER: "https://ministerbd.com/api/products",
-    BUTTERFLY: "https://butterflygroupbd.com/api/v1/pricing"
-};
+/**
+ * OFFICIAL SALSABILAH AMIN EMPIRES - CORE ENGINE
+ * Registered in UK: 09814720
+ * Strategy: MD AL AMIN SOHAG
+ */
 
 const EMPIRE_CONFIG = {
-    DOMAIN: "salsabilah.com",
-    SMS_API: "9957b74834b6681bca3660749917d404134724ff49426",
-    UK_REG: "09814720"
+    API_KEY: "9957b74834b6681bca3660749917d404134724ff49426",
+    GATEWAY_URL: "https://amarsmsbd.xyz/api/smsSendApi",
+    SENDER_ID: "880961761xxxx", 
+    EMI_DIVIDER: 6
 };
 
-async function syncPrice() {
+async function processSmartReminders(customerName, totalDue, mobile) {
+    let cleanDue = parseFloat(totalDue.toString().replace(/[^0-9.]/g, ''));
+    if (isNaN(cleanDue) || cleanDue <= 0) return;
+
+    let installmentAmount = (cleanDue / EMPIRE_CONFIG.EMI_DIVIDER).toFixed(2);
+    let nextDate = new Date();
+    nextDate.setMonth(nextDate.getMonth() + 1);
+    nextDate.setDate(10);
+
+    let message = `Shu-priyo ${customerName}, Salsabilah Electronics-e apnar kisti ${installmentAmount} TK. Shesh tarik: ${nextDate.toLocaleDateString('en-GB')}. Dhonno-bad.`;
+
+    const params = new URLSearchParams({
+        apiKey: EMPIRE_CONFIG.API_KEY,
+        smsText: message,
+        number: mobile,
+        senderid: EMPIRE_CONFIG.SENDER_ID
+    });
+
     try {
-        const response = await fetch(OFFICIAL_SOURCES.MINISTER);
-        const data = await response.json();
-        
-        // LOGIC: PRICE MUST NEVER EXCEED OFFICIAL SITE
-        data.products.forEach(product => {
-            if (product.price < current_db_price) {
-                updateEmpireDB(product.id, product.price);
-                sendAlert(`Price Dropped for ${product.name}. Sync Successful.`);
-            }
-        });
-    } catch (error) {
-        console.error("Sync Failed: Contacting Salsabilah Tech Support");
+        await fetch(`${EMPIRE_CONFIG.GATEWAY_URL}?${params.toString()}`, { method: 'GET' });
+    } catch (e) {
+        console.log("Sync Error");
     }
 }
+
+// System Init
+console.log("Salsabilah Electronics Ltd - Online.");
