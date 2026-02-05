@@ -3,170 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAE & SR | Professional ERP</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>SAE & SR | Universal ERP Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --min-red: #ed1c24; --bf-blue: #004b91; --gold: #D4AF37; --dark: #000810; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--dark); color: #fff; margin: 0; }
+        :root { --gold: #D4AF37; --bg: #000b18; --card: #00162d; --text: #f8fafc; --accent: #38bdf8; --red: #ff4757; --green: #2ed573; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
-        /* Dashboard UI */
-        .no-print { padding: 20px; max-width: 1200px; margin: auto; }
-        .card { background: #001220; border-radius: 15px; padding: 25px; border: 1px solid rgba(212,175,55,0.2); margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h2 { color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: 10px; display: inline-block; }
-        select, input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #1e293b; background: #000; color: #fff; font-size: 16px; }
-        .btn { padding: 15px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; margin-top: 10px; width: 100%; }
-        
-        /* A4 Invoice Setup */
-        .invoice-container { 
-            width: 210mm; min-height: 297mm; background: #fff; color: #000; margin: 0 auto; 
-            padding: 20mm; position: relative; display: none; flex-direction: column;
-        }
-        @media print {
-            .no-print { display: none; }
-            .invoice-container { display: flex !important; margin: 0; width: 100%; height: 100%; }
-            body { background: #fff; }
-        }
+        /* Sidebar Design */
+        .sidebar { width: 280px; background: var(--card); border-right: 2px solid var(--gold); padding: 25px; display: flex; flex-direction: column; }
+        .logo-area { text-align: center; margin-bottom: 30px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 20px; }
+        .nav-link { padding: 14px 18px; margin: 8px 0; background: rgba(255,255,255,0.03); border: 1px solid #1e293b; color: #fff; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { background: var(--gold); color: #000; font-weight: bold; transform: scale(1.02); }
 
-        .inv-header { display: flex; justify-content: space-between; border-bottom: 3px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
-        .brand-name { font-size: 35px; font-weight: 900; margin: 0; }
-        .company-meta { text-align: right; font-size: 13px; line-height: 1.6; }
+        /* Main Workspace */
+        .workspace { flex: 1; padding: 30px; overflow-y: auto; background: radial-gradient(circle at top right, #001f3f, #000b18); }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; border-bottom: 4px solid var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .stat-card h4 { margin: 0; opacity: 0.7; font-size: 14px; }
+        .stat-card h2 { margin: 10px 0 0; color: var(--gold); }
+
+        /* Tables & UI Elements */
+        .content-card { background: var(--card); border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; color: #333; border-radius: 10px; overflow: hidden; }
+        th { background: #f1f2f6; padding: 15px; text-align: left; color: #000; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
+        .badge { padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; }
+        .bg-danger { background: var(--red); color: #fff; }
+        .bg-success { background: var(--green); color: #000; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        th { background: #f8f9fa; padding: 15px; border-bottom: 2px solid #ddd; text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; }
-        
-        .inv-footer { margin-top: auto; padding-top: 50px; text-align: center; border-top: 2px solid #eee; }
-        .developer-tag { font-size: 11px; color: #888; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 8px; font-style: italic; }
+        .search-box { width: 100%; padding: 15px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color: #fff; margin-bottom: 20px; }
+
+        /* Invoice Overlay (Print) */
+        #printArea { display: none; background: #fff; color: #000; padding: 50px; }
+        @media print { .no-print { display: none; } #printArea { display: block !important; } body { background: #fff; } }
     </style>
 </head>
 <body>
 
-<div class="no-print">
-    <div class="card">
-        <h2><i class="fas fa-box-open"></i> SAE MASTER ERP - SOHAG EDITION</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
-            <div>
-                <h3><i class="fas fa-users"></i> কাস্টমার ডাটাবেস</h3>
-                <input type="text" id="custSearch" placeholder="নাম বা ফোন লিখে খুঁজুন..." onkeyup="filterCustomers()">
-                <select id="custSelect" size="8">
-                    <option value="HASMOT ULLAH" data-phone="01711078208" data-addr="Asmankhali, Alamdanga" data-due="264649">HASMOT ULLAH (৳২,৬৪,৬৪৯)</option>
-                    <option value="MD. ANES UDDIN" data-phone="01956137838" data-addr="Hatboalia, Chuadanga" data-due="40702">MD. ANES UDDIN (৳৪০,৭০২)</option>
-                    <option value="ASMA KHATUN" data-phone="01944074823" data-addr="Bhangbaria, Chuadanga" data-due="0">ASMA KHATUN (Paid)</option>
-                    <option value="SHAJIBUL HAQUE" data-phone="01711732515" data-addr="Alamdanga" data-due="0">MD. SHAJIBUL HAQUE</option>
-                </select>
-            </div>
-            <div>
-                <h3><i class="fas fa-file-invoice-dollar"></i> ইনভয়েস কন্ট্রোল</h3>
-                <label>ইনভয়েস থিম সিলেক্ট করুন:</label>
-                <select id="themeSelect">
-                    <option value="minister">Minister Plaza (Red/Black)</option>
-                    <option value="butterfly">House of Butterfly (Royal Blue)</option>
-                </select>
-                <label>প্রোডাক্ট সিলেক্ট করুন:</label>
-                <select id="productSelect">
-                    <option value="Minister 1 TON AC (12K410P-WHT)" data-price="54828">Minister 1 TON AC - ৳৫৪,৮২৮</option>
-                    <option value="Minister Fridge (12.00 Pis Stock)" data-price="35000">Minister Refrigerator - ৳৩৫,০০০</option>
-                    <option value="LG 43 Inch Smart TV" data-price="47702">LG 43" Smart TV - ৳৪৭,৭০২</option>
-                </select>
-                <button class="btn" style="background:var(--gold); color:#000;" onclick="makeInvoice()">ইনভয়েস জেনারেট ও প্রিন্ট করুন</button>
-            </div>
-        </div>
+<div class="sidebar no-print">
+    <div class="logo-area">
+        <h2 style="color:var(--gold); margin:0;">SR ELECTRONICS</h2>
+        <p style="font-size:11px; letter-spacing:1px;">SALSABILAH AMIN EMPIRES</p>
+    </div>
+    <div class="nav-menu">
+        <div class="nav-link active" onclick="nav('dash')"><i class="fas fa-chart-pie"></i> ড্যাশবোর্ড</div>
+        <div class="nav-link" onclick="nav('stock')"><i class="fas fa-boxes-stacked"></i> ইনভেন্টরি ও স্টক</div>
+        <div class="nav-link" onclick="nav('ledger')"><i class="fas fa-file-invoice-dollar"></i> কাস্টমার লেজার (Due)</div>
+        <div class="nav-link" onclick="nav('supply')"><i class="fas fa-truck-field"></i> সাপ্লায়ার ও পারচেস</div>
+        <div class="nav-link" onclick="nav('expense')"><i class="fas fa-receipt"></i> খরচ (Expenses)</div>
+    </div>
+    <div style="margin-top:auto; font-size:10px; opacity:0.5; text-align:center;">
+        Developed by MD. AL AMIN SOHAG
     </div>
 </div>
 
-<div id="invoice" class="invoice-container">
-    <div class="inv-header">
-        <div>
-            <h1 id="invBrand" class="brand-name">BRAND NAME</h1>
-            <p id="invShowroom" style="margin:5px 0; font-weight:bold; color:#555;">SR Electronics Park</p>
-        </div>
-        <div class="company-meta">
-            <strong style="font-size: 16px;">SALSABILAH AMIN EMPIRES LTD.</strong><br>
-            Shah Super Market, Hatboalia, Alamdanga, Chuadanga<br>
-            📞 01711995940, 01719732134
-        </div>
+<div class="workspace no-print">
+    <div class="stat-grid">
+        <div class="stat-card" style="border-color: var(--accent);"><h4>মোট বিক্রি</h4><h2>৳ ৮০,৫০,০০০</h2></div>
+        <div class="stat-card" style="border-color: var(--red);"><h4>মোট বকেয়া</h4><h2>৳ ৩০,০১,৫০০</h2></div>
+        <div class="stat-card" style="border-color: var(--gold);"><h4>মোট খরচ</h4><h2>৳ ২,১৯,০৭৫</h2></div>
+        <div class="stat-card" style="border-color: var(--green);"><h4>মোট কালেকশন</h4><h2>৳ ৫০,৪৮,৫০০</h2></div>
     </div>
 
-    <div style="display:flex; justify-content:space-between; margin-bottom:40px;">
-        <div id="customerInfo">
-            <p style="color:#888; text-transform:uppercase; font-size:12px; margin-bottom:5px;">Billing To:</p>
-            <h3 id="billName" style="margin:0; font-size:20px;">Customer Name</h3>
-            <p id="billAddr" style="margin:3px 0;">Address Line</p>
-            <p id="billPhone" style="margin:3px 0; font-weight:bold;">017XXXXXXXX</p>
-        </div>
-        <div style="text-align:right;">
-            <p><strong>Invoice ID:</strong> #SAE-2026-0644</p>
-            <p><strong>Issue Date:</strong> 05/02/2026</p>
-        </div>
+    <div id="dash" class="section content-card">
+        <h3><i class="fas fa-warehouse"></i> বর্তমান শোরুম স্টক</h3>
+        <table>
+            <thead><tr><th>পণ্য</th><th>ক্যাটাগরি</th><th>পারচেস ডেট</th><th>স্টক</th><th>অ্যাকশন</th></tr></thead>
+            <tbody>
+                <tr><td>Minister 1 TON Non-Inverter AC</td><td>Air Conditioner</td><td>01/02/26</td><td>1 Pis</td><td><span class="badge bg-danger">অর্ডার দিন</span></td></tr>
+                <tr><td>Minister 43" Google TV</td><td>Television</td><td>28/01/26</td><td>5 Pis</td><td><span class="badge bg-success">পর্যাপ্ত</span></td></tr>
+                <tr><td>Minister Fridge (MI-218)</td><td>Refrigerator</td><td>15/01/26</td><td>12 Pis</td><td><span class="badge bg-success">পর্যাপ্ত</span></td></tr>
+                <tr><td>LG 43" Smart TV (Butterfly)</td><td>Television</td><td>02/02/26</td><td>0 Pis</td><td><span class="badge bg-danger">স্টক আউট</span></td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th style="width:60%;">Description</th>
-                <th style="text-align:center;">Qty</th>
-                <th style="text-align:right;">Total (৳)</th>
-            </tr>
-        </thead>
-        <tbody id="billItems"></tbody>
-    </table>
-
-    <div style="margin-top:50px; text-align:right; border-top:2px solid #333; padding-top:15px;">
-        <p style="font-size:16px;">Sub Total: <span id="sbt">0.00</span></p>
-        <h2 style="color:#000; margin:0; font-size:24px;">Grand Total: <span id="gdt">৳ 0.00</span></h2>
-        <p style="color:red; font-weight:bold;">Current Due: <span id="dueT">৳ 0.00</span></p>
+    <div id="ledger" class="section content-card" style="display:none;">
+        <h3><i class="fas fa-user-clock"></i> কাস্টমার বকেয়া ও কিস্তি ট্র্যাকার</h3>
+        <input type="text" class="search-box" placeholder="৩৫০ জন কাস্টমারের মধ্যে খুঁজুন (নাম বা ফোন)...">
+        <table>
+            <thead><tr><th>নাম</th><th>ফোন</th><th>ঠিকানা</th><th>বকেয়া</th><th>কিস্তির তারিখ</th></tr></thead>
+            <tbody>
+                <tr style="background:rgba(255, 71, 87, 0.1);"><td>MD. ANES UDDIN</td><td>01956137838</td><td>Hatboalia</td><td>৳ ৪০,৭০২</td><td>০৫/০২/২৬ (আজ)</td></tr>
+                <tr><td>HASMOT ULLAH</td><td>01711078208</td><td>Asmankhali</td><td>৳ ২,৬৪,৬৪৯</td><td>১০/০২/২৬</td></tr>
+                <tr><td>ASMA KHATUN</td><td>01944074823</td><td>Bhangbaria</td><td>৳ ০.০০</td><td>--</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="inv-footer">
-        <div style="font-weight:bold; font-size:18px; letter-spacing:1px;">A product of SALSABILAH AMIN EMPIRES</div>
-        <div class="developer-tag">Developed by MD. AL AMIN SOHAG | SAE CORE ENGINE v5.0</div>
+    <div id="supply" class="section content-card" style="display:none;">
+        <h3><i class="fas fa-truck-loading"></i> সাপ্লায়ার ও পারচেস অর্ডার</h3>
+        <table>
+            <thead><tr><th>সাপ্লায়ার নাম</th><th>রেফারেন্স</th><th>পণ্য</th><th>টাকা</th><th>অবস্থা</th></tr></thead>
+            <tbody>
+                <tr><td>Butterfly Marketing Ltd.</td><td>CO-6358185</td><td>LG Smart TV</td><td>৳ ৩০,১৩১</td><td><span class="badge bg-danger">বকেয়া</span></td></tr>
+                <tr><td>Minister Hi-Tech Park</td><td>MN-9921</td><td>AC & Fridge</td><td>৳ ১,৫০,০০০</td><td><span class="badge bg-success">পরিশোধিত</span></td></tr>
+                <tr><td>MS Trading</td><td>Infra-01</td><td>Spare Parts</td><td>৳ ৩,২১৯</td><td><span class="badge bg-success">পরিশোধিত</span></td></tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 <script>
-    function filterCustomers() {
-        let val = document.getElementById('custSearch').value.toUpperCase();
-        let opts = document.getElementById('custSelect').options;
-        for(let opt of opts) {
-            opt.style.display = opt.text.toUpperCase().includes(val) ? "" : "none";
-        }
-    }
-
-    function makeInvoice() {
-        const cSel = document.getElementById('custSelect');
-        const cOpt = cSel.options[cSel.selectedIndex];
-        const theme = document.getElementById('themeSelect').value;
-        const pSel = document.getElementById('productSelect');
-        const pOpt = pSel.options[pSel.selectedIndex];
-
-        if(!cOpt || !cOpt.value) { alert("দয়া করে একজন কাস্টমার সিলেক্ট করুন!"); return; }
-
-        // থিম আপডেট
-        const brandH = document.getElementById('invBrand');
-        if(theme === 'minister') {
-            brandH.innerText = "MINISTER PLAZA"; brandH.style.color = "#ed1c24";
-        } else {
-            brandH.innerText = "HOUSE OF BUTTERFLY"; brandH.style.color = "#004b91";
-        }
-
-        // ডাটা আপডেট
-        document.getElementById('billName').innerText = cOpt.value;
-        document.getElementById('billPhone').innerText = cOpt.dataset.phone;
-        document.getElementById('billAddr').innerText = cOpt.dataset.addr;
-        document.getElementById('dueT').innerText = "৳ " + cOpt.dataset.due;
-
-        document.getElementById('billItems').innerHTML = `
-            <tr>
-                <td>${pOpt.value}</td>
-                <td style="text-align:center;">01</td>
-                <td style="text-align:right;">${pOpt.dataset.price}.00</td>
-            </tr>`;
-        
-        document.getElementById('sbt').innerText = pOpt.dataset.price + ".00";
-        document.getElementById('gdt').innerText = "৳ " + pOpt.dataset.price;
-
-        window.print();
+    function nav(id) {
+        document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        event.currentTarget.classList.add('active');
     }
 </script>
+
 </body>
 </html>
